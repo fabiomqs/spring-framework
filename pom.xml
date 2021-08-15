@@ -41,6 +41,6 @@
 	<scm>
 		<developerConnection>scm:git:https://github.com/fabiomqs/pet-clinic.git</developerConnection>
 	  <tag>HEAD</tag>
-  </scm>
+  	</scm>
 
 </project>
