@@ -7,9 +7,9 @@ import java.util.Set;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String descripion;
+    private String description;
 
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;
@@ -22,12 +22,12 @@ public class Category {
         this.id = id;
     }
 
-    public String getDescripion() {
-        return descripion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripion(String descripion) {
-        this.descripion = descripion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<Recipe> getRecipes() {
