@@ -1,6 +1,5 @@
 package guru.springframework.petclinic.servies.springdatajpa;
 
-import guru.springframework.petclinic.model.Owner;
 import guru.springframework.petclinic.model.Vet;
 import guru.springframework.petclinic.repositories.VetRepository;
 import guru.springframework.petclinic.servies.VetService;
