@@ -15,7 +15,7 @@ import java.util.Set;
 
 class RecipeServiceImplTest {
 
-    RecipeService recipeService;
+    RecipeServiceImpl recipeService;
 
     @Mock
     RecipeRepository recipeRepository;
