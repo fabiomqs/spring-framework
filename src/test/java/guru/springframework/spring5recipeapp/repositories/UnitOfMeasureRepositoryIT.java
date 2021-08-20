@@ -23,14 +23,14 @@ class UnitOfMeasureRepositoryIT {
     }
 
     @Test
-    void findByUom() {
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByUom("Teaspoon");
-        Assertions.assertEquals("Teaspoon", uomOptional.get().getUom());
+    void findByDescription() {
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
+        Assertions.assertEquals("Teaspoon", uomOptional.get().getDescription());
     }
 
     @Test
-    void findByUom2() {
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByUom("Cup");
-        Assertions.assertEquals("Cup", uomOptional.get().getUom());
+    void findByDescription2() {
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");
+        Assertions.assertEquals("Cup", uomOptional.get().getDescription());
     }
 }
