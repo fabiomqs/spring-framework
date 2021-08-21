@@ -14,14 +14,13 @@ import org.springframework.ui.Model;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-class IndexControllerTest {
-
+public class IndexControllerTest {
 
     @Mock
     RecipeService recipeService;
@@ -33,7 +32,7 @@ class IndexControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
 
         controller = new IndexController(recipeService);
     }
@@ -75,41 +74,4 @@ class IndexControllerTest {
         assertEquals(2, setInController.size());
     }
 
-
-
-    //IndexController indexController;
-
-    /**@Test
-    void testMockMVC() throws Exception {
-    //webAppContextSetup()
-    MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
-    mockMvc.perform(get("/"))
-    .andExpect(status().isOk())
-    .andExpect(view().name("index"));
-    }*/
-
-    /**@Test
-    void getIndexPage() {
-        HashSet<Recipe> recipesData = new HashSet();
-        recipesData.add(new Recipe());
-        Recipe r = new Recipe();r.setId(2L);
-        recipesData.add(r);
-
-        when(recipeService.getRecipes()).thenReturn(recipesData);
-
-        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
-
-        String viewName = indexController.getIndexPage(model);
-
-        Assertions.assertEquals("index", viewName);
-
-        verify(recipeService, times(1)).getRecipes();
-
-        verify(model, times(1)).addAttribute(eq("recipes"),
-                argumentCaptor.capture());
-
-        Set<Recipe> setInController = argumentCaptor.getValue();
-
-        Assertions.assertEquals(2, setInController.size());
-    }*/
 }

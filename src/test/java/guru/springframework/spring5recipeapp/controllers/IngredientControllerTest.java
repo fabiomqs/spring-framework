@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,7 +38,7 @@ public class IngredientControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
 
         controller = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
@@ -136,11 +135,15 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testDeleteAction() throws Exception {
-        mockMvc.perform(get("/recipe/1/ingredient/8/delete"))
+    public void testDeleteIngredient() throws Exception {
+
+        //then
+        mockMvc.perform(get("/recipe/2/ingredient/3/delete")
+        )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/recipe/1/ingredients"));
+                .andExpect(view().name("redirect:/recipe/2/ingredients"));
 
         verify(ingredientService, times(1)).deleteById(anyLong(), anyLong());
+
     }
 }
