@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +18,8 @@ class OwnerMapServiceTest {
     final Long owner2Id = 2L;
     Owner owner1;
     Owner owner2;
+    Owner owner3;
+    Owner owner4;
 
     @BeforeEach
     void setUp() {
@@ -29,6 +32,14 @@ class OwnerMapServiceTest {
         owner2 = new Owner();owner2.setFirstName("Fiona");owner2.setId(owner2Id);
         owner2.setLastName("Glenanne");owner2.setAddress("123 Coconut Groove");
         owner2.setCity("Miami");owner2.setTelephone("123123123123");
+
+        owner3 = new Owner();owner3.setFirstName("Mindy");owner3.setId(3L);
+        owner3.setLastName("Glenanne");owner3.setAddress("123 Coconut Groove");
+        owner3.setCity("Miami");owner3.setTelephone("123123123123");
+
+        owner4 = new Owner();owner4.setFirstName("Sandy");owner4.setId(4L);
+        owner4.setLastName("Glenanne");owner4.setAddress("123 Coconut Groove");
+        owner4.setCity("Miami");owner4.setTelephone("123123123123");
     }
 
     @Test
@@ -84,5 +95,16 @@ class OwnerMapServiceTest {
     void findByLastNameNotFound() {
         Owner weston = ownerMapService.findByLastName("Westons");
         assertNull(weston);
+    }
+    @Test
+    void findAllByLastNameLike() {
+
+        ownerMapService.save(owner2);ownerMapService.save(owner3);ownerMapService.save(owner4);
+        List<Owner> owners = ownerMapService.findAllByLastNameLike("Glenanne");
+        assertNotNull(owners);
+        assertEquals(3, owners.size());
+        List<Owner> owners2 = ownerMapService.findAllByLastNameLike("Weston");
+        assertNotNull(owners2);
+        assertEquals(1, owners2.size());
     }
 }
