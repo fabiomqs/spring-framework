@@ -30,10 +30,12 @@ public class RecipeControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
 
         controller = new RecipeController(recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @Test
@@ -48,9 +50,6 @@ public class RecipeControllerTest {
 
     @Test
     public void testGetRecipeBadRequest() throws Exception {
-
-        when(recipeService.findById(any())).thenThrow(NumberFormatException.class);
-
         mockMvc.perform(get("/recipe/asd/show"))
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("error"));
