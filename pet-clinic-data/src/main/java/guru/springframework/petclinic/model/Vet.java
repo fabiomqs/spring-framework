@@ -20,4 +20,5 @@ public class Vet extends Person {
             inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Specialty> specialties = new HashSet<>();
 
+
 }
