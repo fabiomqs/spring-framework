@@ -32,7 +32,7 @@ public class IndexControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
 
         controller = new IndexController(recipeService);
     }
@@ -54,7 +54,7 @@ public class IndexControllerTest {
         recipes.add(new Recipe());
 
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId("1");
 
         recipes.add(recipe);
 
