@@ -13,10 +13,12 @@ import java.io.IOException;
 @Service
 public class ImageServiceImpl implements ImageService {
 
+
     private final RecipeRepository recipeRepository;
 
-    public ImageServiceImpl(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
+    public ImageServiceImpl( RecipeRepository recipeService) {
+
+        this.recipeRepository = recipeService;
     }
 
     @Override

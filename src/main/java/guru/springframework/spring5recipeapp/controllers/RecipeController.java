@@ -18,7 +18,6 @@ import javax.validation.Valid;
 public class RecipeController {
 
     private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
-
     private final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
@@ -27,21 +26,27 @@ public class RecipeController {
 
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model){
+
         model.addAttribute("recipe", recipeService.findById(id));
+
         return "recipe/show";
     }
 
-    @GetMapping("/recipe/new")
-    public String newRecipe(Model model) {
+    @GetMapping("recipe/new")
+    public String newRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
+
         return "recipe/recipeform";
     }
 
+    @GetMapping("recipe/{id}/update")
+    public String updateRecipe(@PathVariable String id, Model model){
+        model.addAttribute("recipe", recipeService.findCommandById(id));
+        return RECIPE_RECIPEFORM_URL;
+    }
 
-
-    @PostMapping("/recipe")
-    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command,
-                               BindingResult bindingResult){
+    @PostMapping("recipe")
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
 
@@ -55,12 +60,6 @@ public class RecipeController {
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
 
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
-    }
-
-    @GetMapping("recipe/{id}/update")
-    public String updateRecipe(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findCommandById(id));
-        return  "recipe/recipeform";
     }
 
     @GetMapping("recipe/{id}/delete")
@@ -78,12 +77,13 @@ public class RecipeController {
 
         log.error("Handling not found exception");
         log.error(exception.getMessage());
+
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("error");
-        modelAndView.addObject("title", "404 Not Found");
+        modelAndView.setViewName("404error");
         modelAndView.addObject("exception", exception);
 
         return modelAndView;
     }
+
 }
