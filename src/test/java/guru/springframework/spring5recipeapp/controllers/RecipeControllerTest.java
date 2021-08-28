@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import reactor.core.publisher.Mono;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -42,9 +43,8 @@ public class RecipeControllerTest {
 
         when(recipeService.findById(any())).thenThrow(NotFoundException.class);
 
-        mockMvc.perform(get("/recipe/1/show"))
-                .andExpect(status().isNotFound())
-                .andExpect(view().name("404error"));
+        mockMvc.perform(get("/recipe//show"))
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -56,10 +56,10 @@ public class RecipeControllerTest {
     @Test
     public void testGetRecipe() throws Exception {
 
-        Recipe recipe = new Recipe();
+        RecipeCommand recipe = new RecipeCommand();
         recipe.setId("1");
 
-        when(recipeService.findById(any())).thenReturn(recipe);
+        when(recipeService.findCommandById(anyString())).thenReturn(Mono.just(recipe));
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isOk())
@@ -82,7 +82,7 @@ public class RecipeControllerTest {
         RecipeCommand command = new RecipeCommand();
         command.setId("2");
 
-        when(recipeService.saveRecipeCommand(any())).thenReturn(command);
+        when(recipeService.saveRecipeCommand(any())).thenReturn(Mono.just(command));
 
         mockMvc.perform(post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -99,7 +99,7 @@ public class RecipeControllerTest {
         RecipeCommand command = new RecipeCommand();
         command.setId("2");
 
-        when(recipeService.saveRecipeCommand(any())).thenReturn(command);
+        when(recipeService.saveRecipeCommand(any())).thenReturn(Mono.just(command));
 
         mockMvc.perform(post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -116,7 +116,7 @@ public class RecipeControllerTest {
         RecipeCommand command = new RecipeCommand();
         command.setId("2");
 
-        when(recipeService.findCommandById(any())).thenReturn(command);
+        when(recipeService.findCommandById(any())).thenReturn(Mono.just(command));
 
         mockMvc.perform(get("/recipe/1/update"))
                 .andExpect(status().isOk())
