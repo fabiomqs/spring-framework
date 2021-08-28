@@ -1,6 +1,7 @@
 package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.commands.RecipeCommand;
+import guru.springframework.spring5recipeapp.repositories.reactive.RecipeReactiveRepository;
 import guru.springframework.spring5recipeapp.services.ImageService;
 import guru.springframework.spring5recipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,7 +64,7 @@ public class ImageControllerTest {
         MockMultipartFile multipartFile =
                 new MockMultipartFile("imagefile", "testing.txt", "text/plain",
                         "Spring Framework Guru".getBytes());
-
+        when(imageService.saveImageFile(any(), any())).thenReturn(Mono.empty());
         mockMvc.perform(multipart("/recipe/1/image").file(multipartFile))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(header().string("Location", "/recipe/1/show"));
