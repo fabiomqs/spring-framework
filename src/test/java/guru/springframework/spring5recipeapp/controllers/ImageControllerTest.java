@@ -102,9 +102,8 @@ public class ImageControllerTest {
 
     @Test
     public void testGetRecipeBadRequest() throws Exception {
-        mockMvc.perform(get("/recipe/asd/image"))
-                .andExpect(status().isBadRequest())
-                .andExpect(view().name("error"));
+        mockMvc.perform(get("/recipe//image"))
+                .andExpect(status().is4xxClientError());
     }
 
 }

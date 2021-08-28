@@ -103,7 +103,7 @@ public class IngredientServiceImplTest {
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand("2", command);
 
         //then
-        assertEquals(Long.valueOf(3L), savedCommand.getId());
+        assertEquals("3", savedCommand.getId());
         verify(recipeRepository, times(1)).findById(any());
         verify(recipeRepository, times(1)).save(any(Recipe.class));
 
