@@ -72,7 +72,7 @@ public class ImageControllerTest {
         verify(imageService, times(1)).saveImageFile(any(), any());
     }
 
-    @Test
+/*    @Test
     public void renderImageFromDB() throws Exception {
 
         //given
@@ -106,6 +106,6 @@ public class ImageControllerTest {
     public void testGetRecipeBadRequest() throws Exception {
         mockMvc.perform(get("/recipe//image"))
                 .andExpect(status().is4xxClientError());
-    }
+    }*/
 
 }
