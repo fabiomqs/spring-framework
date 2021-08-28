@@ -4,6 +4,8 @@ import guru.springframework.spring5recipeapp.domain.*;
 import guru.springframework.spring5recipeapp.repositories.CategoryRepository;
 import guru.springframework.spring5recipeapp.repositories.RecipeRepository;
 import guru.springframework.spring5recipeapp.repositories.UnitOfMeasureRepository;
+import guru.springframework.spring5recipeapp.repositories.reactive.CategoryReactiveRepository;
+import guru.springframework.spring5recipeapp.repositories.reactive.RecipeReactiveRepository;
 import guru.springframework.spring5recipeapp.repositories.reactive.UnitOfMeasureReactiveRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    //TODO
-    //Fix
-    @Autowired
-    UnitOfMeasureReactiveRepository reactiveRepository;
-
     public RecipeBootstrap(CategoryRepository categoryRepository,
                            RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
@@ -45,11 +42,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         loadUom();
         recipeRepository.saveAll(getRecipes());
         log.debug("Loading Bootstrap Data");
-        //TODO
-        //Fix
-        log.error("#########################################################");
-        log.error("Count: " + reactiveRepository.count().block().toString());
-        log.error("#########################################################");
     }
 
     private void loadCategories(){
