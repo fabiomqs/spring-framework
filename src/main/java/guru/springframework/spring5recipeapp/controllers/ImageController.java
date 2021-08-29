@@ -30,7 +30,7 @@ public class ImageController {
 
     @GetMapping("recipe/{id}/image")
     public String showUploadForm(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findCommandById(id).block());
+        model.addAttribute("recipe", recipeService.findCommandById(id));
 
         return "recipe/imageuploadform";
     }
@@ -60,4 +60,5 @@ public class ImageController {
             IOUtils.copy(is, response.getOutputStream());
         }
     }*/
+
 }
