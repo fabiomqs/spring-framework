@@ -125,7 +125,7 @@ public class IngredientControllerTest {
         command.setRecipeId("2");
 
         //when
-        when(ingredientService.saveIngredientCommand(any(), any())).thenReturn(
+        when(ingredientService.saveIngredientCommand(any())).thenReturn(
                 Mono.just(command));
 
         //then
