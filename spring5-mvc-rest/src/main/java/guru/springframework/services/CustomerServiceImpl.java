@@ -2,6 +2,7 @@ package guru.springframework.services;
 
 import guru.springframework.api.v1.model.CustomerDTO;
 import guru.springframework.api.v1.model.mapper.CustomerMapper;
+import guru.springframework.controllers.v1.CustomerController;
 import guru.springframework.domain.Customer;
 import guru.springframework.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .stream()
                 .map(customer -> {
                     CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-                    customerDTO.setCustomerUrl("/api/v1/customers/" + customer.getId());
+                    customerDTO.setCustomerUrl(createCustomerURL(customer.getId()));
                     return customerDTO;
                 })
                 .collect(Collectors.toList());
@@ -37,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findById(id)
                 .map(customer -> {
                     CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-                    customerDTO.setCustomerUrl("/api/v1/customers/" + customer.getId());
+                    customerDTO.setCustomerUrl(createCustomerURL(customer.getId()));
                     return customerDTO;
                 })
                 .orElseThrow(RuntimeException::new);
@@ -54,9 +55,13 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerDTO returnDto = customerMapper.customerToCustomerDTO(savedCustomer);
 
-        returnDto.setCustomerUrl("/api/v1/customer/" + savedCustomer.getId());
+        returnDto.setCustomerUrl(createCustomerURL(savedCustomer.getId()));
 
         return returnDto;
+    }
+
+    private String createCustomerURL(Long id) {
+        return CustomerController.BASE_URL + "/" + id;
     }
 
     @Override
@@ -79,7 +84,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customer.setLastName(customerDTO.getLastName());
             }
             CustomerDTO returnDto = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
-            returnDto.setCustomerUrl("/api/v1/customer/" + customer.getId());
+            returnDto.setCustomerUrl(createCustomerURL(customer.getId()));
             return returnDto;
         }).orElseThrow(RuntimeException::new); //todo implement better exception handling;
     }
