@@ -2,8 +2,10 @@ package guru.springframework.bootstrap;
 
 import guru.springframework.domain.Category;
 import guru.springframework.domain.Customer;
+import guru.springframework.domain.Vendor;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.CustomerRepository;
+import guru.springframework.repositories.VendorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,10 +15,12 @@ import org.springframework.stereotype.Component;
 public class Bootstrap implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     private CustomerRepository customerRepository;
+    private VendorRepository vendorRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository, VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -43,14 +47,24 @@ public class Bootstrap implements CommandLineRunner {
         Customer utku = new Customer();utku.setFirstName("Utku");utku.setLastName("Turel");
         Customer dennis = new Customer();dennis.setFirstName("Dennis");dennis.setLastName("Whatever");
 
-        customerRepository.save(joe);
-        customerRepository.save(michael);
-        customerRepository.save(david);
-        customerRepository.save(anne);
-        customerRepository.save(alice);
-        customerRepository.save(dennis);
+        customerRepository.save(joe);customerRepository.save(michael);
+        customerRepository.save(david);customerRepository.save(anne);
+        customerRepository.save(alice);customerRepository.save(dennis);
 
         log.info("Data Loaded (Customers)= " + customerRepository.count());
+
+        Vendor western = new Vendor();western.setName("Western Tasty Fruits Ltd.");
+        Vendor exoticC = new Vendor();exoticC.setName("Exotic Fruits Company");
+        Vendor home = new Vendor();home.setName("Home Fruits");
+        Vendor fun = new Vendor();fun.setName("Fun Fresh Fruits Ltd.");
+        Vendor nutsC = new Vendor();nutsC.setName("Nuts for Nuts Company");
+        Vendor random = new Vendor();random.setName("Random new Vendor");
+
+        vendorRepository.save(western);vendorRepository.save(exoticC);
+        vendorRepository.save(home);vendorRepository.save(fun);
+        vendorRepository.save(nutsC);vendorRepository.save(random);
+
+        log.info("Data Loaded (Vendors)= " + vendorRepository.count());
 
     }
 }

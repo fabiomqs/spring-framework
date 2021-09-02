@@ -1,4 +1,4 @@
-package guru.springframework.api.v1.model.mapper;
+package guru.springframework.api.v1.mapper;
 
 import guru.springframework.api.v1.model.CategoryDTO;
 import guru.springframework.domain.Category;

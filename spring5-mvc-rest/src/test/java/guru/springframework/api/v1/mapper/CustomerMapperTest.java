@@ -1,7 +1,6 @@
 package guru.springframework.api.v1.mapper;
 
 import guru.springframework.api.v1.model.CustomerDTO;
-import guru.springframework.api.v1.model.mapper.CustomerMapper;
 import guru.springframework.domain.Customer;
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +30,7 @@ public class CustomerMapperTest {
 
     }
 
+    @Test
     public void customerDTOToCustomer() throws Exception {
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setFirstName(FIRST_NAME);
