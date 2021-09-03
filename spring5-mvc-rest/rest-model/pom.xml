@@ -52,14 +52,4 @@
 		</plugins>
 	</build>
 
-	<!--<configuration>
-		 The package of your generated sources
-					<packageName>guru.springframework.model</packageName>
-					<sources>
-						<source>src/main/resources/xsd</source>
-					</sources>
-				</configuration>-->
-
-
-
 </project>

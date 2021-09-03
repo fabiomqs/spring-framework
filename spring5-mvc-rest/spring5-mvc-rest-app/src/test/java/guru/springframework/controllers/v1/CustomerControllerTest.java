@@ -1,6 +1,6 @@
 package guru.springframework.controllers.v1;
 
-import guru.springframework.api.v1.model.CustomerDTO;
+import guru.springframework.model.CustomerDTO;
 import guru.springframework.controllers.RestResponseEntityExceptionHandler;
 import guru.springframework.services.CustomerService;
 import guru.springframework.services.ResourceNotFoundException;
@@ -51,8 +51,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
 
         customer1 = new CustomerDTO();
 
-        customer1.setFirstName(FIRST_NAME);
-        customer1.setLastName(LAST_NAME);
+        customer1.setFirstname(FIRST_NAME);
+        customer1.setLastname(LAST_NAME);
         customer1.setCustomerUrl(CUSTOMER_URL);
     }
 
@@ -60,8 +60,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
     public void testListCustomers() throws Exception {
         CustomerDTO customer2 = new CustomerDTO();
 
-        customer2.setFirstName("Bob");
-        customer2.setLastName("Accosta");
+        customer2.setFirstname("Bob");
+        customer2.setLastname("Accosta");
         customer2.setCustomerUrl(CustomerController.BASE_URL + "/2");
 
         List<CustomerDTO> customers = Arrays.asList(customer1, customer2);
@@ -91,12 +91,12 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
     public void createNewCustomer() throws Exception {
         //given
         CustomerDTO customer = new CustomerDTO();
-        customer.setFirstName("Fred");
-        customer.setLastName("Flintstone");
+        customer.setFirstname("Fred");
+        customer.setLastname("Flintstone");
 
         CustomerDTO returnDTO = new CustomerDTO();
-        returnDTO.setFirstName(customer.getFirstName());
-        returnDTO.setLastName(customer.getLastName());
+        returnDTO.setFirstname(customer.getFirstname());
+        returnDTO.setLastname(customer.getLastname());
         returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
         when(customerService.createNewCustomer(customer)).thenReturn(returnDTO);
@@ -108,19 +108,19 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
                     .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstname", equalTo("Fred")))
-                .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
     }
 
     @Test
     public void testUpdateCustomer() throws Exception {
         //given
         CustomerDTO customer = new CustomerDTO();
-        customer.setFirstName("Fred");
-        customer.setLastName("Flintstone");
+        customer.setFirstname("Fred");
+        customer.setLastname("Flintstone");
 
         CustomerDTO returnDTO = new CustomerDTO();
-        returnDTO.setFirstName(customer.getFirstName());
-        returnDTO.setLastName(customer.getLastName());
+        returnDTO.setFirstname(customer.getFirstname());
+        returnDTO.setLastname(customer.getLastname());
         returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
         when(customerService.saveCustomerByDTO(anyLong(), any(CustomerDTO.class))).thenReturn(returnDTO);
@@ -141,11 +141,11 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
 
         //given
         CustomerDTO customer = new CustomerDTO();
-        customer.setFirstName("Fred");
+        customer.setFirstname("Fred");
 
         CustomerDTO returnDTO = new CustomerDTO();
-        returnDTO.setFirstName(customer.getFirstName());
-        returnDTO.setLastName("Flintstone");
+        returnDTO.setFirstname(customer.getFirstname());
+        returnDTO.setLastname("Flintstone");
         returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
         when(customerService.patchCustomer(anyLong(), any(CustomerDTO.class))).thenReturn(returnDTO);
