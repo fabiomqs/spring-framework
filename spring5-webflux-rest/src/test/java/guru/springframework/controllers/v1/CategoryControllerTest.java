@@ -1,4 +1,4 @@
-package guru.springframework.controllers;
+package guru.springframework.controllers.v1;
 
 import guru.springframework.controllers.v1.CategoryController;
 import guru.springframework.domain.Category;
