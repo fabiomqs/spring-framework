@@ -22,7 +22,10 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(RestDocumentationExtension.class)
@@ -44,8 +47,12 @@ public class BeerControllerTest {
     void getBeerById() throws Exception {
         given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
 
-        mockMvc.perform(get("/api/v1/beer/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        mockMvc.perform(get(BeerController.BASE_URL + "/{beerId}",
+                UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(document("v1/beer", pathParameters(
+                        parameterWithName("beerId").description("UUID of desired beer to get.")
+                )));
     }
 
     @Test
@@ -53,7 +60,7 @@ public class BeerControllerTest {
         BeerDto beerDto =  getValidBeerDto();
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
-        mockMvc.perform(post("/api/v1/beer/")
+        mockMvc.perform(post(BeerController.BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDtoJson))
                 .andExpect(status().isCreated());
@@ -64,7 +71,7 @@ public class BeerControllerTest {
         BeerDto beerDto =  getValidBeerDto();
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
-        mockMvc.perform(put("/api/v1/beer/" + UUID.randomUUID().toString())
+        mockMvc.perform(put(BeerController.BASE_URL + UUID.randomUUID().toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDtoJson))
                 .andExpect(status().isNoContent());
