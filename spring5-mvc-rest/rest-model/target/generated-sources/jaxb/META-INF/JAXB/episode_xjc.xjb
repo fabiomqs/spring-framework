@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.3.2 
+Consulte <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
+Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
+Gerado em: 2021.09.03 às 06:49:03 PM BRT 
+
+  -->
+  <jaxb:bindings scd="x-schema::">
+    <jaxb:schemaBindings map="false">
+      <jaxb:package name="guru.springframework.model"/>
+    </jaxb:schemaBindings>
+    <jaxb:bindings scd="~CustomerListDTO">
+      <jaxb:class ref="guru.springframework.model.CustomerListDTO"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~CustomerDTO">
+      <jaxb:class ref="guru.springframework.model.CustomerDTO"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+</jaxb:bindings>
+
