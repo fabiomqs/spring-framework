@@ -48,11 +48,17 @@ public class BeerControllerTest {
         given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
 
         mockMvc.perform(get(BeerController.BASE_URL + "/{beerId}",
-                UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
+                UUID.randomUUID().toString())
+                .param("iscold", "yes")
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(document("v1/beer", pathParameters(
-                        parameterWithName("beerId").description("UUID of desired beer to get.")
-                )));
+                .andDo(document("v1/beer",
+                        pathParameters (
+                                parameterWithName("beerId").description("UUID of desired beer to get.")
+                        ),
+                        requestParameters(
+                                parameterWithName("iscold").description("Is Beer Cold Query param")
+                        )));
     }
 
     @Test
