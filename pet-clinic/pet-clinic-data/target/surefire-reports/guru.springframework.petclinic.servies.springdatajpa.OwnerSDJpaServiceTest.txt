@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: guru.springframework.petclinic.servies.springdatajpa.OwnerSDJpaServiceTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.314 s - in guru.springframework.petclinic.servies.springdatajpa.OwnerSDJpaServiceTest
